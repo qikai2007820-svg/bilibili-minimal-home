@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bilibili Minimal Home - Demo</title>
+<style>
+  :root{
+    --bg:#0f1012;
+    --panel:#17191d;
+    --panel-2:#1d2025;
+    --text:#f3f4f6;
+    --muted:#9aa0aa;
+    --line:#2a2e35;
+    --accent:#fb7299;
+    --accent-2:#ff9ab7;
+    --shadow:0 18px 60px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 50% 34%, rgba(251,114,153,.08), transparent 28%),
+      linear-gradient(180deg,#111317 0%,#0d0f12 100%);
+    overflow:hidden;
+  }
+
+  .topbar{
+    height:72px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    padding:0 28px;
+    border-bottom:1px solid rgba(255,255,255,.045);
+    background:rgba(15,16,18,.78);
+    backdrop-filter:blur(16px);
+  }
+
+  /* 保留区域 1：动态 */
+  .dynamic{
+    justify-self:start;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:var(--muted);
+    text-decoration:none;
+    font-size:14px;
+    transition:.2s ease;
+  }
+  .dynamic:hover{color:var(--text)}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,#d9f8ff,#ffe5ef);
+    color:#555;
+    border:2px solid rgba(255,255,255,.85);
+    box-shadow:0 4px 20px rgba(0,0,0,.22);
+    font-weight:700;
+  }
+
+  /* 保留区域 2：用户入口 */
+  .account{
+    justify-self:end;
+    display:flex;
+    align-items:center;
+    gap:17px;
+  }
+  .account a{
+    color:#aeb4bd;
+    text-decoration:none;
+    font-size:13px;
+    transition:.18s ease;
+  }
+  .account a:hover{color:white}
+  .account .user{
+    width:36px;height:36px;border-radius:50%;
+    background:#dbeafe;
+    display:grid;place-items:center;
+    color:#4b5563;
+    font-weight:700;
+    border:1px solid rgba(255,255,255,.6);
+  }
+  .submit{
+    padding:9px 16px;
+    border-radius:10px;
+    background:var(--accent);
+    color:white!important;
+    font-weight:600;
+  }
+  .submit:hover{background:var(--accent-2)}
+
+  main{
+    height:calc(100% - 72px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .hero{
+    width:min(760px,90vw);
+    transform:translateY(-3vh);
+    text-align:center;
+  }
+
+  .wordmark{
+    font-size:52px;
+    font-weight:800;
+    letter-spacing:-2px;
+    margin-bottom:18px;
+    color:#f5f7fa;
+    opacity:.96;
+  }
+  .wordmark span{color:var(--accent)}
+
+  .tagline{
+    color:#777e89;
+    font-size:14px;
+    margin-bottom:28px;
+  }
+
+  .search-large{
+    height:60px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 18px;
+    background:rgba(28,31,36,.92);
+    border:1px solid #30343c;
+    box-shadow:var(--shadow);
+    transition:.2s ease;
+  }
+  .search-large:focus-within{
+    border-color:#5b616c;
+    transform:translateY(-1px);
+    box-shadow:0 22px 70px rgba(0,0,0,.43);
+  }
+  .search-large .icon{color:#8f96a1;font-size:20px}
+  .search-large input{
+    flex:1;
+    min-width:0;
+    border:0;outline:0;background:transparent;
+    color:white;font-size:17px;
+  }
+  .search-large input::placeholder{color:#69707b}
+  .search-large button{
+    height:40px;
+    padding:0 18px;
+    border:0;
+    border-radius:11px;
+    background:#f0f2f5;
+    color:#181a1f;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .search-large button:hover{background:white}
+
+  .hint{
+    margin-top:15px;
+    font-size:12px;
+    color:#555c66;
+  }
+
+  @media (max-width:900px){
+    .topbar{grid-template-columns:1fr auto;gap:16px}
+    .account a:not(.submit){display:none}
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="dynamic" href="https://t.bilibili.com/" title="动态">
+      <div class="avatar">动</div>
+      <span>动态</span>
+    </a>
+
+    <nav class="account">
+      <div class="user">Q</div>
+      <a href="https://message.bilibili.com/">消息</a>
+      <a href="https://space.bilibili.com/">动态</a>
+      <a href="https://space.bilibili.com/">收藏</a>
+      <a href="https://www.bilibili.com/account/history">历史</a>
+      <a class="submit" href="https://member.bilibili.com/platform/upload/video/frame">投稿</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wordmark">bili<span>bili</span></div>
+      <div class="tagline">只在你主动寻找时展示内容。</div>
+
+      <form class="search-large" onsubmit="return doSearch(this.q.value)">
+        <div class="icon">⌕</div>
+        <input name="q" autofocus placeholder="搜索视频、UP 主、番剧…" autocomplete="off" />
+        <button>搜索</button>
+      </form>
+
+      <div class="hint">Enter 搜索 · 首页不展示推荐流</div>
+    </section>
+  </main>
+
+<script>
+function doSearch(query){
+  const q = (query || "").trim();
+  if(!q) return false;
+  location.href = "https://search.bilibili.com/all?keyword=" + encodeURIComponent(q);
+  return false;
+}
+</script>
+</body>
+</html>
