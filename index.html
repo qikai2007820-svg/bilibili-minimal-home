@@ -3,23 +3,104 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bilibili极简主页</title>
+  <meta name="description" content="适用于 Bilibili 根首页的非官方极简浏览器扩展。隐藏推荐内容，保留原生搜索。">
+  <link rel="icon" type="image/png" href="./store-assets/icon32.png">
+  <title>bilibili极简主页｜非官方浏览器扩展</title>
   <style>
-    :root { color-scheme: light dark; font: 16px/1.7 system-ui, "Microsoft YaHei", sans-serif; }
-    body { max-width: 720px; margin: 48px auto; padding: 0 20px; }
-    h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.25; }
-    a { color: #db497a; }
-    li { margin: 10px 0; }
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8fb;
+      --card: #fff;
+      --text: #22252d;
+      --muted: #5f6876;
+      --line: #dce0e7;
+      --accent: #e85d88;
+      --accent-text: #fff;
+      font: 16px/1.7 system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #101114; --card: #1b1e24; --text: #f3f4f6; --muted: #aeb4bd; --line: #30343c; --accent: #fb7299; --accent-text: #16171a; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--text); background: var(--bg); }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    header { border-bottom: 1px solid var(--line); background: var(--card); }
+    header .shell { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-size: 18px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .brand span { color: var(--accent); }
+    .languages { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; }
+    .languages a { color: var(--muted); text-decoration: none; }
+    .languages a:hover { color: var(--accent); }
+    main { padding: 72px 0 84px; }
+    .hero { max-width: 760px; }
+    .eyebrow { margin: 0 0 14px; color: var(--accent); font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+    h1 { margin: 0; font-size: clamp(36px, 6vw, 64px); line-height: 1.15; letter-spacing: -.04em; }
+    .lead { max-width: 650px; margin: 24px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 19px; border: 1px solid var(--line); border-radius: 11px; background: var(--card); font-weight: 700; text-decoration: none; }
+    .button.primary { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
+    .note { margin: 15px 0 0; color: var(--muted); font-size: 13px; }
+    section { margin-top: 76px; }
+    h2 { margin: 0 0 20px; font-size: 26px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature { padding: 23px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+    .feature h3 { margin: 0 0 8px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--muted); }
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+    figure img { display: block; width: 100%; height: auto; }
+    figcaption { padding: 12px 17px; color: var(--muted); font-size: 14px; }
+    footer { padding: 25px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    footer .shell { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+    @media (max-width: 740px) {
+      header .shell { padding: 15px 0; align-items: flex-start; flex-direction: column; gap: 4px; }
+      main { padding-top: 50px; }
+      section { margin-top: 58px; }
+      .features, .gallery { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <h1>bilibili极简主页</h1>
-  <p>隐藏 Bilibili 根首页推荐内容，保留网站原生搜索和账户入口的非官方浏览器扩展。</p>
-  <ul>
-    <li><a href="./store-assets/privacy-policy.html">隐私政策</a></li>
-    <li><a href="./release/bilibili-minimal-home-1.2.2.zip">下载扩展安装包</a></li>
-    <li><a href="https://github.com/qikai2007820-svg/bilibili-minimal-home">查看源码与安装说明</a></li>
-  </ul>
-  <p>本项目与 Bilibili 无关联。</p>
+  <header>
+    <div class="shell">
+      <a class="brand" href="./">bili<span>bili</span> 极简主页</a>
+      <nav class="languages" aria-label="语言">
+        <a href="https://github.com/qikai2007820-svg/bilibili-minimal-home#readme">简体中文</a>
+        <a href="https://github.com/qikai2007820-svg/bilibili-minimal-home/blob/main/README.en.md">English</a>
+        <a href="https://github.com/qikai2007820-svg/bilibili-minimal-home/blob/main/README.ja.md">日本語</a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell">
+    <div class="hero">
+      <p class="eyebrow">CHROME / EDGE · 非官方扩展</p>
+      <h1>让首页回到搜索。</h1>
+      <p class="lead">隐藏 Bilibili 根首页的推荐内容，保留原生搜索、联想和账户入口。想看什么，由你主动决定。</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/qikai2007820-svg/bilibili-minimal-home/releases/download/v1.2.2/bilibili-minimal-home-1.2.2.zip">下载 v1.2.2</a>
+        <a class="button" href="https://github.com/qikai2007820-svg/bilibili-minimal-home">查看源码与安装方法</a>
+      </div>
+      <p class="note">下载 ZIP 后需解压，并在扩展管理页选择“加载已解压的扩展程序”。</p>
+    </div>
+
+    <section aria-labelledby="features-title">
+      <h2 id="features-title">保留你需要的，收起其余内容</h2>
+      <div class="features">
+        <div class="feature"><h3>只作用于根首页</h3><p>视频、搜索及其他页面继续使用 Bilibili 原有布局。</p></div>
+        <div class="feature"><h3>原生搜索</h3><p>搜索历史、联想与跳转仍由网站自身处理；热搜区域会隐藏。</p></div>
+        <div class="feature"><h3>明暗模式</h3><p>自动跟随浏览器配色，并保留原生账户入口。</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="preview-title">
+      <h2 id="preview-title">效果预览</h2>
+      <div class="gallery">
+        <figure><img src="./store-assets/screenshot-1280x800.png" alt="浅色模式下的 Bilibili 极简首页" width="1280" height="800"><figcaption>浅色模式</figcaption></figure>
+        <figure><img src="./store-assets/screenshot-dark-1280x800.png" alt="暗色模式下的 Bilibili 极简首页" width="1280" height="800"><figcaption>暗色模式</figcaption></figure>
+      </div>
+    </section>
+  </main>
+  <footer><div class="shell"><span>独立开发，与 Bilibili 无关联。</span><a href="./store-assets/privacy-policy.html">隐私政策</a></div></footer>
 </body>
 </html>
